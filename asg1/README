@@ -1,0 +1,12 @@
+/*************************************************************************
+	> File Name: README
+	> Author: Maoting Ren
+	> Mail: mren@g.clemson.edu
+	> Created Time: Wed 09 Sep 2015 02:47:40 AM EDT
+ ************************************************************************/
+
+
+class Game overload the operate '()', and this operate can initialize a Source instance, and get the value of Source
+
+
+
