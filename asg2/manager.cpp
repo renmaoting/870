@@ -26,9 +26,9 @@ Manager::Manager() :
     Gamedata::getInstance()->getXmlBool("bg/transparency")) ),
 
   orbSurface( io->loadAndSet(
-    Gamedata::getInstance()->getXmlStr("greenorb/file"), 
-    Gamedata::getInstance()->getXmlBool("greenorb/transparency")) ),
-  orbFrame( new Frame("greenorb", orbSurface) ),
+    Gamedata::getInstance()->getXmlStr("bat/file"), 
+    Gamedata::getInstance()->getXmlBool("bat/transparency")) ),
+  orbFrame( new Frame("bat", orbSurface) ),
   spriteVec(),
   
   makeVideo( false ),
@@ -40,7 +40,7 @@ Manager::Manager() :
 {
   spriteVec.reserve(ballCount);
   for(unsigned int i =0; i< spriteVec.capacity(); i++)
-    spriteVec.push_back(Sprite("greenorb", orbFrame));
+    spriteVec.push_back(Sprite("bat", orbFrame));
   
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     throw string("Unable to initialize SDL: ");

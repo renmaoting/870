@@ -1,1 +1,41 @@
-this is the second assignment of oo design, and this assignment is to make a game with the code of malloy
+Name:Maoting Ren
+Clemson Email Address: mren@g.clemson.edu
+
+Project no: 3
+Project due date: 8 AM, Friday, September 25 th , 2015
+
+Project description:
+This project will generate 50 bat, and then they will fly in the moonsky; 
+You can press 'p' to pause the game, and press 'p' again to unpause game;
+Also you can press 's' to slow the game, and press it again to back to normal.
+
+
+How you made your sprites: I made my sprite and background image by gimp.
+
+
+
+
+
+
+
+
+
+--------------------------------
+| Clock         |              |
+--------------------------------
+| Sprites       |              |
+--------------------------------
+| Singleton     |              |
+--------------------------------
+| game.xml      |              |
+--------------------------------
+| Leaks         |              |
+--------------------------------
+| F4/frames     |              |
+--------------------------------
+| Submission    |              |
+--------------------------------
+| README        |              |
+--------------------------------
+
+

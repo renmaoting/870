@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <string>
 #include <deque>
+#include "vector2f.h"
 
 class Manager;
 
@@ -13,7 +14,7 @@ public:
   bool isStarted() const { return started; }
   bool isPaused() const  { return paused;  }
   int getFps() const;
-  int getSeconds() const{ return sumOfTicks/1000; }
+  int getSeconds() const;
 
   void start();
   void pause();
@@ -26,14 +27,18 @@ private:
   bool started;
   bool paused;
   int pausedTime;
+  int pausedSpan;
   bool sloMo;
   unsigned int sumOfTicks;
   unsigned int totalTicks;
-  unsigned int getTicksSinceLastFrame() const;
-
+  Vector2f secondPos;
+  Vector2f FPSPos;
+  Vector2f namePos;
+  int pojPos;
 
   Clock();
   Clock(const Clock&);
   Clock&operator=(const Clock&);
+  unsigned int getTicksSinceLastFrame() const;
   friend class Manager;
 };
