@@ -9,6 +9,8 @@ public:
   // ~World() { ; } // The frame will be deleted by the FrameFactory
   void update();
   void draw() const;
+  unsigned int getWorldWidth(){ return worldWidth;}
+  unsigned int getWorldHeight(){ return worldHeight;}
 private:
   const IOManager& io;
   SDL_Surface* const surface;

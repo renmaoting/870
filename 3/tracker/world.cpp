@@ -4,8 +4,8 @@
 World::World(const std::string& name, int fact) : 
   io( IOManager::getInstance() ),
   surface( io.loadAndSet(
-    Gamedata::getInstance().getXmlStr("back/file"), 
-    Gamedata::getInstance().getXmlBool("back/transparency")) ),
+    Gamedata::getInstance().getXmlStr(name + "/file"), 
+    Gamedata::getInstance().getXmlBool(name +"/transparency")) ),
   frame( new Frame(name, surface) ),
   factor(fact),
     frameWidth( frame->getWidth() ),

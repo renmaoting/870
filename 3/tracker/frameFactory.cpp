@@ -4,7 +4,37 @@
 #include "vector2f.h"
 
 FrameFactory::~FrameFactory() {
-  std::cout << "The FrameFactory has leaks" << std::endl;
+
+    std::map<std::string, Frame*>::const_iterator pos; 
+    for(pos = frames.begin(); pos != frames.end(); pos++) 
+    {
+        delete pos->second;
+    }
+    
+    std::map<std::string, SDL_Surface*>::const_iterator sPos; 
+    for(sPos = surfaces.begin(); sPos != surfaces.end(); sPos++) 
+    {
+        SDL_FreeSurface(sPos->second);
+    }
+
+    std::map<std::string, std::vector<Frame*> >::const_iterator mulPos; 
+    for( mulPos = multiFrames.begin(); mulPos != multiFrames.end(); mulPos++)
+    {
+        for(unsigned i = 0; i < mulPos->second.size(); i++)
+        {
+            delete mulPos->second[i];
+        }
+    }
+    
+    std::map<std::string, std::vector<SDL_Surface*> >::const_iterator mSurPos;
+    for( mSurPos = multiSurfaces.begin(); mSurPos != multiSurfaces.end(); mSurPos++)
+    {
+        for(unsigned i = 0; i < mSurPos->second.size(); i++)
+        {
+            SDL_FreeSurface(mSurPos->second[i]);
+        }
+    }
+
 }
 
 FrameFactory& FrameFactory::getInstance() {
@@ -51,9 +81,9 @@ std::vector<Frame*> FrameFactory::getFrames(const std::string& name) {
 
   SDL_Surface* surf;
   for (unsigned i = 0; i < numberOfFrames; ++i) {
-    unsigned frameX = i * width + srcX;
-   surf = ExtractSurface::getInstance().
-               get(surface, width, height, frameX, srcY); 
+    unsigned frameY = i * height+ srcY;
+    surf = ExtractSurface::getInstance().
+               get(surface, width, height, srcX, frameY); 
     surfaces.push_back( surf );
     frames.push_back( new Frame(name, surf) );
   }

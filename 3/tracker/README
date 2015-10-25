@@ -1,0 +1,37 @@
+Name:Maoting Ren
+Clemson Email Address: mren@g.clemson.edu
+
+Project no: 4 
+Project due date: 8 AM, Tur, Oct 22 th , 2015
+
+Project description:
+This project I modify the clock and make the FPS be aroud 60, and also add a lot of sprites include many twoway sprites and normal sprites
+I have checked that no meomery leak in my own code.
+
+How you made your sprites: I get most of my orignal images from this address, I deal this images by PS and GIMP, and then get the image I want. 
+    https://github.com/coolfishstudio/game-fishing-single/tree/master/images
+
+
+
+
+
+
+--------------------------------
+| Clock         |              |
+--------------------------------
+| Sprites       |              |
+--------------------------------
+| Singleton     |              |
+--------------------------------
+| game.xml      |              |
+--------------------------------
+| Leaks         |              |
+--------------------------------
+| F4/frames     |              |
+--------------------------------
+| Submission    |              |
+--------------------------------
+| README        |              |
+--------------------------------
+
+

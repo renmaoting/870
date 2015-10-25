@@ -15,7 +15,7 @@ Clock& Clock::getInstance() {
 }
 
 Clock::Clock() :
-  ticks(0),
+  ticks(1000 / Gamedata::getInstance().getXmlInt("frameCap")),
   totalTicks(0),
   started(false), 
   paused(false), 
@@ -36,8 +36,14 @@ void Clock::draw() const {
 
 void Clock::update() { 
   totalTicks = SDL_GetTicks();
-  ticks = totalTicks - sumOfTicks;
-  sumOfTicks += ticks;
+  int delay = ticks - (totalTicks - sumOfTicks) ;
+  if(delay >= 0){
+      sumOfTicks += ticks;
+      SDL_Delay(delay);
+  }else{
+    sumOfTicks = totalTicks;
+  }
+
 }
 
 unsigned int Clock::getTicksSinceLastFrame() const {

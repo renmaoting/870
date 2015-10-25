@@ -22,6 +22,7 @@ private:
   Viewport& viewport;
 
   std::vector<Drawable*> sprites;
+  std::vector<Drawable*> bubbleSprites;
   std::vector<Drawable*>::iterator currentSprite;
 
   bool makeVideo;

@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "vector2f.h"
 #include "multisprite.h"
+#include "twoWayMultisprite.h"
 #include "sprite.h"
 #include "gamedata.h"
 #include "manager.h"
@@ -14,6 +15,12 @@ Manager::~Manager() {
     delete (*ptr);
     ++ptr;
   }
+  
+  std::vector<Drawable*>::const_iterator ptrB = bubbleSprites.begin();
+  while ( ptrB !=bubbleSprites.end() ) {
+    delete (*ptrB);
+    ++ptrB;
+  }
 }
 
 Manager::Manager() :
@@ -21,10 +28,11 @@ Manager::Manager() :
   io( IOManager::getInstance() ),
   clock( Clock::getInstance() ),
   screen( io.getScreen() ),
-  world("back", Gamedata::getInstance().getXmlInt("back/factor") ),
+  world("superbg", Gamedata::getInstance().getXmlInt("superbg/factor") ),
   viewport( Viewport::getInstance() ),
 
   sprites(),
+  bubbleSprites(),
   currentSprite(),
 
   makeVideo( false ),
@@ -39,8 +47,28 @@ Manager::Manager() :
   SDL_WM_SetCaption(title.c_str(), NULL);
   atexit(SDL_Quit);
 
-  sprites.push_back( new MultiSprite("spinstar"));
-  sprites.push_back(new Sprite("greenorb"));
+  sprites.push_back( new MultiSprite("fish7"));
+  sprites.push_back( new TwoWayMultiSprite("fish1"));
+  sprites.push_back( new TwoWayMultiSprite("fish1"));
+  sprites.push_back( new TwoWayMultiSprite("fish1"));
+  sprites.push_back( new TwoWayMultiSprite("fish1"));
+  sprites.push_back( new TwoWayMultiSprite("fish4"));
+  sprites.push_back( new TwoWayMultiSprite("fish4"));
+  sprites.push_back( new TwoWayMultiSprite("fish4"));
+  sprites.push_back( new TwoWayMultiSprite("fish5"));
+  sprites.push_back( new TwoWayMultiSprite("fish5"));
+  sprites.push_back( new TwoWayMultiSprite("fish10"));
+  
+  // create another vector, and put the bubble in the vector
+  // so that we don't track them
+  for(int i =0; i< 300; i++)
+  {
+    Sprite* temp = new Sprite("bubble");
+    temp->X( rand()% world.getWorldWidth() );
+    temp->Y( rand() % world.getWorldHeight());  
+    temp->velocityY( temp->velocityY() + rand()%80); 
+    bubbleSprites.push_back(temp);
+  }
   currentSprite = sprites.begin();
   viewport.setObjectToTrack(*currentSprite);
 }
@@ -54,8 +82,15 @@ void Manager::draw() const {
     ++ptr;
   }
 
+  // draw the bubbles
+  std::vector<Drawable*>::const_iterator ptrP = bubbleSprites.begin();
+  while ( ptrP != bubbleSprites.end() ) {
+    (*ptrP)->draw();
+    ++ptrP;
+  }
+
   io.printMessageAt("Press T to switch sprites", 10, 70);
-  io.printMessageAt(title, 10, 450);
+  io.printMessageAt(title, 10, 600);
   viewport.draw();
 
   SDL_Flip(screen);
@@ -89,6 +124,14 @@ void Manager::update() {
     (*ptr)->update(ticks);
     ++ptr;
   }
+
+  // update the bubbles
+  std::vector<Drawable*>::const_iterator ptrP = bubbleSprites.begin();
+  while ( ptrP != bubbleSprites.end() ) {
+    (*ptrP)->update(ticks);
+    ++ptrP;
+  }
+
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
   }
@@ -128,6 +171,5 @@ void Manager::play() {
     }
     draw();
     update();
-    SDL_Delay(15);
-  }
+  }  
 }

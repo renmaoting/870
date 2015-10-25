@@ -51,7 +51,8 @@ void Sprite::update(Uint32 ticks) {
   setPosition(getPosition() + incr);
 
   if ( Y() < 0) {
-    velocityY( abs( velocityY() ) );
+//    velocityY( abs( velocityY() ) );
+    Y(worldWidth - rand()%150);
   }
   if ( Y() > worldHeight-frameHeight) {
     velocityY( -abs( velocityY() ) );
