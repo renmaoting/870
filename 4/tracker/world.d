@@ -1,2 +1,2 @@
-world.o world.d : world.cpp world.h ioManager.h gamedata.h vector2f.h parseXML.h \
- frame.h viewport.h drawable.h
+world.o world.d : world.cpp frameFactory.h frame.h gamedata.h vector2f.h \
+ parseXML.h world.h ioManager.h viewport.h drawable.h

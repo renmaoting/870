@@ -52,4 +52,6 @@ private:
   Vector2f position;
   Vector2f velocity;
 };
+int getRandom(int a, int b); 
+float getRandFloat(float min, float max); 
 #endif

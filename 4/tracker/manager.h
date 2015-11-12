@@ -20,7 +20,7 @@ private:
   Clock& clock;
 
   SDL_Surface * const screen;
-  World world;
+  World* world;
   Viewport& viewport;
   Player* player;
 

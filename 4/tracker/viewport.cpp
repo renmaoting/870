@@ -9,7 +9,7 @@ Viewport& Viewport::getInstance() {
 
 Viewport::Viewport() : 
   gdata(Gamedata::getInstance()),
-  position(600,600),
+  position(600,700),
   viewWidth(gdata.getXmlInt("view/width")), 
   viewHeight(gdata.getXmlInt("view/height")),
   worldWidth(gdata.getXmlInt("world/width")),

@@ -15,7 +15,7 @@ class Hud
 {
 public:
     Hud();
-    ~Hud();
+    ~Hud(){ };
     void drawHud(SDL_Surface* screen, int x, int y );
     void setHudSize(int w, int h);
 

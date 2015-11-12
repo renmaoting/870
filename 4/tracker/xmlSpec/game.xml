@@ -17,7 +17,7 @@
 
 <world>
   <width>1920</width>
-  <height>1200</height>
+  <height>1080</height>
 </world>
 
 <clock>
@@ -26,7 +26,7 @@
 </clock>
 
 <superbg>
-  <file>images/sea.jpg</file>
+  <file>images/undersea.jpg</file>
   <red>193</red>
   <green>205</green>
   <blue>205</blue>
@@ -34,9 +34,23 @@
   <srcX>0</srcX>
   <srcY>0</srcY>
   <width>1920</width>
-  <height>1200</height>
+  <height>1080</height>
   <transparency>false</transparency>
 </superbg>
+
+<coral>
+  <file>images/Coral.png</file>
+  <red>193</red>
+  <green>205</green>
+  <blue>205</blue>
+  <factor>5</factor>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>2050</width>
+  <height>404</height>
+  <transparency>false</transparency>
+</coral>
+
 
 <back>
   <file>images/checkerboard.bmp</file>
@@ -141,45 +155,17 @@
   <transparency>true</transparency>
 </fish10>
 
-<spinstar>
-  <file>images/spinstar.png</file>
-  <startLoc x="520" y="640"/>
-
-  <frames>4</frames>
-  <frameInterval>20</frameInterval>
-
-  <srcX>0</srcX>
-  <srcY>0</srcY>
-  <width>32</width>
-  <height>32</height>
-  <speedX>200</speedX>
-  <speedY>0</speedY>
-  <transparency>true</transparency>
-</spinstar>
-
 <bubble>
   <file>images/bubble.png</file>
-  <srcX>0</srcX>
-  <srcY>0</srcY>
+  <src x ="0" y="0"/>
+  <cushion>50</cushion>
+  <scale min="0.5" max="1.5"/>
   <width>23</width>
   <height>23</height>
-  <startLoc x="0" y="1110"/>
-  <speedX>0</speedX>
-  <speedY>-100</speedY>
+  <loc x="0" y="1110"/>
+  <speed x="1" y="100"/>
   <transparency>true</transparency>
 </bubble>
 
-
-<greenorb>
-  <file>images/greenball.bmp</file>
-  <srcX>0</srcX>
-  <srcY>0</srcY>
-  <width>32</width>
-  <height>32</height>
-  <startLoc x="320" y="240"/>
-  <speedX>175</speedX>
-  <speedY>175</speedY>
-  <transparency>true</transparency>
-</greenorb>
 
 </GameData>
