@@ -5,6 +5,7 @@
 #include "world.h"
 #include "viewport.h"
 #include "player.h"
+#include "hud.h"
 
 class Manager {
 public:
@@ -29,9 +30,12 @@ private:
 
   bool makeVideo;
   int frameCount;
-  const std::string username;
   const std::string title;
+  const std::string username;
   const int frameMax;
+  Uint32 hudTime;
+  bool showHud;
+  Hud* hud;
 
   void draw() const;
   void update();

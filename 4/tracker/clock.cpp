@@ -28,10 +28,10 @@ Clock::Clock() :
 }
 
 void Clock::draw() const { 
-  IOManager::getInstance().
-    printMessageValueAt("Seconds: ", getSeconds(), pos[0], pos[1]);
-  IOManager::getInstance().
-    printMessageValueAt("fps: ", getFps(), pos[0], pos[1]+20);
+//  IOManager::getInstance().
+  //  printMessageValueAt("Seconds: ", getSeconds(), pos[0], pos[1]);
+  //IOManager::getInstance().
+  //  printMessageValueAt("fps: ", getFps(), pos[0], pos[1]+20);
 }
 
 void Clock::update() { 

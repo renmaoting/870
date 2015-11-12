@@ -8,6 +8,8 @@
 #include "gamedata.h"
 #include "manager.h"
 #include "extractSurface.h"
+#include "hud.h"
+
 
 Manager::~Manager() { 
   std::vector<Drawable*>::const_iterator ptr = sprites.begin();
@@ -38,9 +40,12 @@ Manager::Manager() :
 
   makeVideo( false ),
   frameCount( 0 ),
-  username(  Gamedata::getInstance().getXmlStr("username") ),
   title( Gamedata::getInstance().getXmlStr("screenTitle") ),
-  frameMax( Gamedata::getInstance().getXmlInt("frameMax") )
+  username( Gamedata::getInstance().getXmlStr("username") ),
+  frameMax( Gamedata::getInstance().getXmlInt("frameMax") ),
+  hudTime(0),
+  showHud(true),
+  hud(new Hud())
 {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     throw string("Unable to initialize SDL: ");
@@ -59,7 +64,6 @@ Manager::Manager() :
   sprites.push_back( new TwoWayMultiSprite("fish4"));
   sprites.push_back( new TwoWayMultiSprite("fish5"));
   sprites.push_back( new TwoWayMultiSprite("fish5"));
-  //sprites.push_back( new TwoWayMultiSprite("fish10"));
   
   // create another vector, and put the bubble in the vector
   // so that we don't track them
@@ -77,7 +81,7 @@ Manager::Manager() :
 
 void Manager::draw() const {
   world.draw();
-  clock.draw();
+  //clock.draw();
   std::vector<Drawable*>::const_iterator ptr = sprites.begin();
   while ( ptr != sprites.end() ) {
     (*ptr)->draw();
@@ -90,9 +94,10 @@ void Manager::draw() const {
     (*ptrP)->draw();
     ++ptrP;
   }
-
-  io.printMessageAt("Press T to switch sprites", 10, 70);
-  io.printMessageAt(title, 10, 600);
+  if(showHud == true)  
+    hud->drawHud(screen, 10, 10);
+  //io.printMessageAt("Press T to switch sprites", 10, 70);
+  io.printMessageCenteredAt(title, 10);
   viewport.draw();
 
   SDL_Flip(screen);
@@ -120,6 +125,10 @@ void Manager::switchSprite() {
 void Manager::update() {
   clock.update();
   Uint32 ticks = clock.getTicksSinceLastFrame();
+
+  hudTime += ticks;
+  if(hudTime >= 2000)
+      showHud = false;
 
   std::vector<Drawable*>::const_iterator ptr = sprites.begin();
   while ( ptr != sprites.end() ) {
@@ -162,35 +171,59 @@ void Manager::play() {
           if ( clock.isPaused() ) clock.unpause();
           else clock.pause();
         }
-        if (keystate[SDLK_s]) {
-           player->setVelocity(Vector2f(player->velocityX(),100)); 
-        }
 
-        if (keystate[SDLK_a]) {
-           player->setVelocity(Vector2f(-100,player->velocityY())); 
-           player->setDirection(false);
+        if (keystate[SDLK_s] && keystate[SDLK_w]) {
+            player->stop();
         }
-        if (keystate[SDLK_d]) {
-           player->setVelocity(Vector2f(100,player->velocityY())); 
-           player->setDirection(true);
+        else if(keystate[SDLK_s])
+        {
+            player->goDown();
         }
-        if (keystate[SDLK_w]) {
-           player->setVelocity(Vector2f(player->velocityX(),-100)); 
+        else if(keystate[SDLK_w])
+        {
+            player->goUp();
+        }
+        
 
+        if (keystate[SDLK_a] && keystate[SDLK_d]) {
+            player->stop();
+        }
+        else if(keystate[SDLK_a])
+        {
+            player->goLeft();
+        }
+        else if (keystate[SDLK_d]) {
+           player->goRight();
         }
 
         if (keystate[SDLK_F4] && !makeVideo) {
           std::cout << "Making video frames" << std::endl;
           makeVideo = true;
         }
+        if (keystate[SDLK_F1]) {
+            hudTime = 0;
+            showHud = true;
+        }
+
       }
       if(event.type == SDL_KEYUP) {
         if (keystate[SDLK_s] == false && keystate[SDLK_w] == false) {
            player->setVelocity(Vector2f(player->velocityX(),0)); 
         }
+        else if (keystate[SDLK_s])
+            player->goDown();
+        else if(keystate[SDLK_w])
+            player->goUp();
+
         if (keystate[SDLK_a] == false && keystate[SDLK_d] == false) {
            player->setVelocity(Vector2f(0,player->velocityY())); 
         }
+        else if(keystate[SDLK_a])
+        {
+            player->goLeft();
+        }
+        else if(keystate[SDLK_d])
+            player->goRight();
       }
     }
     draw();

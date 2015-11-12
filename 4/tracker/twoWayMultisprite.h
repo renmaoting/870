@@ -11,6 +11,7 @@ public:
 
   virtual void draw() const;
   virtual void update(Uint32 ticks);
+  virtual void setDirection(bool Right){ right = Right;}
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
