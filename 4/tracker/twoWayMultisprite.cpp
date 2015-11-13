@@ -18,8 +18,8 @@ void TwoWayMultiSprite::advanceFrame(Uint32 ticks) {
 
 TwoWayMultiSprite::TwoWayMultiSprite( const std::string& name) :
   Drawable(name, 
-           Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x") + rand()%500, 
-                    Gamedata::getInstance().getXmlInt(name+"/startLoc/y") + rand()%400), 
+           Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"), 
+                    Gamedata::getInstance().getXmlInt(name+"/startLoc/y")), 
            Vector2f(Gamedata::getInstance().getXmlInt(name+"/speedX") + rand()%30,
                     Gamedata::getInstance().getXmlInt(name+"/speedY") + rand()%30)
            ),
@@ -35,9 +35,13 @@ TwoWayMultiSprite::TwoWayMultiSprite( const std::string& name) :
   frameInterval( Gamedata::getInstance().getXmlInt(name+"/frameInterval") ),
   timeSinceLastFrame( 0 ),
   frameWidth(frames[0]->getWidth()),
-  frameHeight(frames[0]->getHeight())
+  frameHeight(frames[0]->getHeight()),
+  scale(Gamedata::getInstance().getXmlInt(name+"/scale"))
 { 
-
+    X(rand()% worldWidth);
+    Y(rand()% worldHeight);
+    if(scale == 0)
+        scale = rand()%7;
 }
 
 void TwoWayMultiSprite::draw() const { 

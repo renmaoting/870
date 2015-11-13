@@ -63,10 +63,10 @@ Manager::Manager() :
   // so that we don't track them
   for(int i =0; i< 300; i++)
   {
-    Sprite* temp = new Sprite("bubble");
-    temp->X( rand()% world.getWorldWidth() );
-    temp->Y( rand() % world.getWorldHeight());  
-    temp->velocityY( temp->velocityY() + rand()%80); 
+      Sprite* temp = new Sprite("bubble");
+    //temp->X( rand()% world.getWorldWidth() );
+    //temp->Y( rand() % world.getWorldHeight());  
+    //temp->velocityY( temp->velocityY() + rand()%80); 
     bubbleSprites.push_back(temp);
   }
   currentSprite = sprites.begin();

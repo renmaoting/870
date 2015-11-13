@@ -12,12 +12,12 @@
 
 <view>
   <width>960</width>
-  <height>640</height>
+  <height>650</height>
 </view>
 
 <world>
-  <width>1920</width>
-  <height>1080</height>
+  <width>3900</width>
+  <height>650</height>
 </world>
 
 <clock>
@@ -26,11 +26,11 @@
 </clock>
 
 <superbg>
-  <file>images/undersea.jpg</file>
+  <file>images/ocean.png</file>
   <red>193</red>
   <green>205</green>
   <blue>205</blue>
-  <factor>1</factor>
+  <factor>5</factor>
   <srcX>0</srcX>
   <srcY>0</srcY>
   <width>1920</width>
@@ -38,25 +38,35 @@
   <transparency>false</transparency>
 </superbg>
 
-<coral>
-  <file>images/Coral.png</file>
+<hill>
+  <file>images/mt.png</file>
   <red>193</red>
   <green>205</green>
   <blue>205</blue>
-  <factor>5</factor>
+  <factor>1</factor>
   <srcX>0</srcX>
   <srcY>0</srcY>
-  <width>2050</width>
-  <height>404</height>
+  <width>1500</width>
+  <height>650</height>
   <transparency>false</transparency>
-</coral>
+</hill>
 
+<hud>
+    <height>200</height>
+    <width>200</width>
+    <startLoc x="10" y="10"/>
+    <interval>30</interval>
+    <existTime>2000</existTime>
+    <red>193</red>
+    <green>205</green>
+    <blue>205</blue>
+</hud>
 
 <back>
   <file>images/checkerboard.bmp</file>
-  <red>193</red>
-  <green>205</green>
-  <blue>205</blue>
+  <red>1</red>
+  <green>5</green>
+  <blue>245</blue>
   <factor>1</factor>
   <srcX>0</srcX>
   <srcY>0</srcY>
@@ -68,9 +78,9 @@
 <font name="font">
   <file>font/dyslexic-bold.otf</file>
   <size>20</size>
-  <red>2</red>
-  <green>255</green>
-  <blue>250</blue>
+  <red>122</red>
+  <green>15</green>
+  <blue>200</blue>
   <unused>0</unused>
 </font>
 
@@ -81,6 +91,7 @@
   <frames>16</frames>
   <frameInterval>150</frameInterval>
 
+  <scale>3 </scale>
   <srcX>0</srcX>
   <srcY>0</srcY>
   <width>55</width>
@@ -96,6 +107,7 @@
 
   <frames>16</frames>
   <frameInterval>150</frameInterval>
+  <scale>5 </scale>
 
   <srcX>0</srcX>
   <srcY>0</srcY>
@@ -113,6 +125,7 @@
   <frames>16</frames>
   <frameInterval>450</frameInterval>
 
+  <scale>7 </scale>
   <srcX>0</srcX>
   <srcY>0</srcY>
   <width>107</width>
@@ -136,12 +149,13 @@
   <height>151</height>
   <speedX>100</speedX>
   <speedY>50</speedY>
+  <scale>7 </scale>
   <transparency>true</transparency>
 </fish7>
 
 <fish10>
   <file>images/fish10m.png</file>
-  <startLoc x="120" y="440"/>
+  <startLoc x="120" y="240"/>
 
   <frames>20</frames>
   <frameInterval>550</frameInterval>
@@ -150,6 +164,7 @@
   <srcY>0</srcY>
   <width>178</width>
   <height>187</height>
+  <scale>7 </scale>
   <speedX>100</speedX>
   <speedY>50</speedY>
   <transparency>true</transparency>
@@ -161,9 +176,10 @@
   <cushion>50</cushion>
   <scale min="0.5" max="1.5"/>
   <width>23</width>
+  <number>100</number>
   <height>23</height>
-  <loc x="0" y="1110"/>
-  <speed x="1" y="100"/>
+  <loc x="0" y="700"/>
+  <speed x="10" y="100"/>
   <transparency>true</transparency>
 </bubble>
 

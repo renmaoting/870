@@ -1,3 +1,6 @@
+#ifndef _MANAGER_H
+#define _MANAGER_H
+
 #include <vector>
 #include <SDL.h>
 #include "ioManager.h"
@@ -33,7 +36,6 @@ private:
   const std::string title;
   const std::string username;
   const int frameMax;
-  Uint32 hudTime;
   bool showHud;
   Hud* hud;
 
@@ -44,3 +46,4 @@ private:
   Manager& operator=(const Manager&);
   void makeFrame();
 };
+#endif

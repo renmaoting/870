@@ -10,18 +10,30 @@
 
 #include "aaline.h"
 #include <SDL.h>
+#include "clock.h"
 
 class Hud
 {
 public:
     Hud();
+    Hud(Hud&);
+    Hud operator=(const Hud&);
     ~Hud(){ };
-    void drawHud(SDL_Surface* screen, int x, int y );
-    void setHudSize(int w, int h);
+    void drawHud();
+    void draw();
+    void update( Uint32 ticks);
+    void setShow(bool show);
 
 private:
+    SDL_Surface* screen;
     int HUD_HEIGHT;
     int HUD_WIDTH;
+    int x;
+    int y;
+    int interval;
+    int hudTime;
+    bool showHud;
+    int existTime;
 };
 
 #endif

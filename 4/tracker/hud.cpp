@@ -8,37 +8,69 @@
 #include "hud.h" 
 #include "ioManager.h"
 #include "gamedata.h"
-#include "clock.h"
 
-Hud::Hud():HUD_HEIGHT(300),
-    HUD_WIDTH(200)
+Hud::Hud():
+    screen(IOManager::getInstance().getScreen()),
+    HUD_HEIGHT(Gamedata::getInstance().getXmlInt("hud/height")),
+    HUD_WIDTH( Gamedata::getInstance().getXmlInt("hud/width")),
+    x(Gamedata::getInstance().getXmlInt("hud/startLoc/x")),
+    y(Gamedata::getInstance().getXmlInt("hud/startLoc/y")),
+    interval(Gamedata::getInstance().getXmlInt("hud/interval")),
+    hudTime(0),
+    showHud(false),
+    existTime(Gamedata::getInstance().getXmlInt("hud/existTime"))
 {
 }
 
-void Hud::drawHud(SDL_Surface* screen, int x, int y )
+void Hud::drawHud()
 {
-    const Uint32 RED = SDL_MapRGB(screen->format, 0xff, 0, 0);
+    const Uint32 col = SDL_MapRGB(screen->format, 
+            Gamedata::getInstance().getXmlInt("hud/red"),
+            Gamedata::getInstance().getXmlInt("hud/green"),
+            Gamedata::getInstance().getXmlInt("hud/blue"));
     Draw_AALine(screen, x, y +HUD_HEIGHT/2,
             x + HUD_WIDTH, y+ HUD_HEIGHT/2,
             HUD_HEIGHT, 0xff, 0xff, 0xff, 0xff/2);
-    Draw_AALine(screen, x, y, x + HUD_WIDTH, y, 3, RED);
-    Draw_AALine(screen, x, y, x , y + HUD_HEIGHT, 3, RED);
-    Draw_AALine(screen, x + HUD_WIDTH, y ,x + HUD_WIDTH, y + HUD_HEIGHT, 3, RED);
-    Draw_AALine(screen, x, y + HUD_HEIGHT, x + HUD_WIDTH, y + HUD_HEIGHT, 3, RED);
-    //IOManager::getInstance().printMessageValueAt
+    Draw_AALine(screen, x, y, x + HUD_WIDTH, y, 3, col);
+    Draw_AALine(screen, x, y, x , y + HUD_HEIGHT, 3, col);
+    Draw_AALine(screen, x + HUD_WIDTH, y ,x + HUD_WIDTH, y + HUD_HEIGHT, 3, col);
+    Draw_AALine(screen, x, y + HUD_HEIGHT, x + HUD_WIDTH, y + HUD_HEIGHT, 3, col);
+
     IOManager::getInstance().
-        printMessageValueAt("Sec: ",Clock::getInstance().getSeconds(), x+10, y+10);
+        printMessageValueAt("Sec: ",Clock::getInstance().getSeconds(), 2*x, 2*y);
     IOManager::getInstance().
-        printMessageValueAt("FPS: ", Clock::getInstance().getFps(), x +10, y+40);
-    IOManager::getInstance().printMessageAt("use a to left", x + 10, y + 70);
-    IOManager::getInstance().printMessageAt("use d to right", x + 10, y + 100);
-    IOManager::getInstance().printMessageAt("use w to up", x + 10, y + 130);
-    IOManager::getInstance().printMessageAt("use s to down", x + 10, y + 160);
+        printMessageValueAt("FPS: ", Clock::getInstance().getFps(), 2*x, 2*y + interval);
+    IOManager::getInstance().printMessageAt("A:  Move left", 2*x, 2*y + 2*interval);
+    IOManager::getInstance().printMessageAt("D:  Move right", 2*x, 2*y + 3*interval);
+    IOManager::getInstance().printMessageAt("W:  Move up", 2*x, 2*y + 4*interval);
+    IOManager::getInstance().printMessageAt("S:  Move down", 2*x, 2*y + 5*interval);
 }
 
-void Hud::setHudSize(int w, int h)
+void Hud::draw()
 {
-    HUD_WIDTH = w;
-    HUD_HEIGHT = h;
+   if(hudTime <= existTime || showHud == true) 
+   {
+        drawHud();
+   }
 }
+
+void Hud::update( Uint32 ticks)
+{
+    hudTime += ticks;
+}
+
+void Hud::setShow(bool show)
+{
+    showHud = show;
+}
+
+
+
+
+
+
+
+
+
+
 

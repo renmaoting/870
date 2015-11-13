@@ -15,6 +15,7 @@ public:
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
+  virtual float getScale()const{ return scale;}
 
 protected:
   const std::vector<Frame *> frames;
@@ -30,6 +31,7 @@ protected:
   float timeSinceLastFrame;
   int frameWidth;
   int frameHeight;
+  int scale;
 
   void advanceFrame(Uint32 ticks);
   TwoWayMultiSprite(const TwoWayMultiSprite&);

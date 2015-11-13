@@ -9,6 +9,8 @@ Player::Player( const std::string& name) :
     TwoWayMultiSprite(name)
 { 
     setVelocity(Vector2f(0,0));
+    X(worldWidth/3);
+    Y(worldHeight/3);
 }
 
 void Player::goLeft()

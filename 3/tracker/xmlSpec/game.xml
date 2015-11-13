@@ -141,22 +141,6 @@
   <transparency>true</transparency>
 </fish10>
 
-<spinstar>
-  <file>images/spinstar.png</file>
-  <startLoc x="520" y="640"/>
-
-  <frames>4</frames>
-  <frameInterval>20</frameInterval>
-
-  <srcX>0</srcX>
-  <srcY>0</srcY>
-  <width>32</width>
-  <height>32</height>
-  <speedX>200</speedX>
-  <speedY>0</speedY>
-  <transparency>true</transparency>
-</spinstar>
-
 <bubble>
   <file>images/bubble.png</file>
   <srcX>0</srcX>
@@ -168,18 +152,5 @@
   <speedY>-100</speedY>
   <transparency>true</transparency>
 </bubble>
-
-
-<greenorb>
-  <file>images/greenball.bmp</file>
-  <srcX>0</srcX>
-  <srcY>0</srcY>
-  <width>32</width>
-  <height>32</height>
-  <startLoc x="320" y="240"/>
-  <speedX>175</speedX>
-  <speedY>175</speedY>
-  <transparency>true</transparency>
-</greenorb>
 
 </GameData>

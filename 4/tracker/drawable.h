@@ -23,6 +23,7 @@ public:
   const std::string& getName() const { return name; }
   void setName(const std::string& n) { name = n;    }
   virtual const Frame* getFrame() const = 0;
+  virtual float getScale()const { return 0;};
 
   virtual void draw() const = 0;
   virtual void update(Uint32 ticks) = 0;

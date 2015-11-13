@@ -3,11 +3,6 @@
 #include "world.h"
 
 World::World(const std::vector<std::string>& name, const std::vector<int>& fact) : 
-//  io( IOManager::getInstance() ),
-  //surface( io.loadAndSet(
-  //  Gamedata::getInstance().getXmlStr(name + "/file"), 
-  //  Gamedata::getInstance().getXmlBool(name +"/transparency")) ),
-  //frame( new Frame(name, surface) ),
   frame(),
   factor(),
     frameWidth(),
@@ -32,15 +27,15 @@ void World::update() {
     for(unsigned int i =0; i< frame.size(); i++)
     {
         viewX[i] = static_cast<int>(view.X() / factor[i]) % frameWidth[i];
-        viewY[i] = static_cast<int>(view.Y() / factor[i]) % frameHeight[i];
+        viewY[i] = static_cast<int>(view.Y() / factor[0]) % frameHeight[i];
     }
 }
 
 void World::draw(int i) const { 
     frame[i]->draw(viewX[i], viewY[i], 0, 0);// draw picture's pos(viewX, viewY) to the view's pos(0, 0) 
-  //frame->draw(0, viewY, frameWidth-viewX, 0); 
-  //frame->draw(viewX, 0, 0, frameHeight - viewY); 
-  //frame->draw(0, 0, frameWidth-viewX, frameHeight - viewY); 
+    frame[i]->draw(0, viewY[i], frameWidth[i]-viewX[i], 0); 
+    //frame->draw(viewX, 0, 0, frameHeight - viewY); 
+    //frame->draw(0, 0, frameWidth-viewX, frameHeight - viewY); 
 }
 
 

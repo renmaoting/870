@@ -8,7 +8,7 @@
 
 class ScaledSprite : public Drawable {
 public:
-  ScaledSprite(const std::string&, SDL_Surface*);
+  ScaledSprite(const std::string&);
   ScaledSprite(const ScaledSprite& s);
   ~ScaledSprite();
 
@@ -28,7 +28,8 @@ public:
   }
 
 private:
-  double scale;
+  SDL_Surface* surface;
+  float scale;
   SDL_Surface* scaledSurface;
   const Frame * frame;
   int frameWidth;

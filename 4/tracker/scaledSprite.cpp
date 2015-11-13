@@ -3,9 +3,10 @@
 #include "SDL/SDL_rotozoom.h"
 #include "scaledSprite.h"
 #include "gamedata.h"
+#include "frameFactory.h"
+#include "ioManager.h"
 
-ScaledSprite::ScaledSprite(const std::string& name, 
-                           SDL_Surface* surface) :
+ScaledSprite::ScaledSprite(const std::string& name) :
   Drawable(name,
            Vector2f(Gamedata::getInstance().getXmlInt(name+"/loc/x"), 
                     Gamedata::getInstance().getXmlInt(name+"/loc/y")), 
@@ -17,6 +18,8 @@ ScaledSprite::ScaledSprite(const std::string& name,
                     Gamedata::getInstance().getXmlInt(name+"/speed/y"))
                    )
   ), 
+  surface(IOManager::getInstance().loadAndSet(Gamedata::getInstance().getXmlStr("bubble/file"),
+            Gamedata::getInstance().getXmlBool("bubble/transparency")) ),
   scale(getRandFloat(Gamedata::getInstance().getXmlFloat(name+"/scale/min"),
                      Gamedata::getInstance().getXmlFloat(name+"/scale/max"))
   ),
@@ -25,14 +28,21 @@ ScaledSprite::ScaledSprite(const std::string& name,
                    Gamedata::getInstance().getXmlInt(name+"/src/x"), 
                    Gamedata::getInstance().getXmlInt(name+"/src/y"))
   ),
+  //frame(FrameFactory::getInstance().getFrame(name)),
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
-{ }
+{ 
+  X( rand()% worldWidth );
+  Y( rand() % worldHeight);  
+  velocityY(-abs( velocityY())); 
+  velocityX( abs(velocityY())%20); 
+}
 
 ScaledSprite::ScaledSprite(const ScaledSprite& s) :
   Drawable(s.getName(), s.getPosition(), s.getVelocity()), 
+  surface(s.surface),
   scale(s.scale),
   scaledSurface(s.scaledSurface),
   frame(s.frame),
@@ -40,7 +50,8 @@ ScaledSprite::ScaledSprite(const ScaledSprite& s) :
   frameHeight(s.frameHeight),
   worldWidth(s.worldWidth),
   worldHeight(s.worldHeight)
-{ }
+{
+}
 
 ScaledSprite& ScaledSprite::operator=(const ScaledSprite& rhs) {
   setName( rhs.getName() );
@@ -58,6 +69,7 @@ ScaledSprite& ScaledSprite::operator=(const ScaledSprite& rhs) {
 
 ScaledSprite::~ScaledSprite() {
   SDL_FreeSurface( scaledSurface );
+  SDL_FreeSurface( surface);
   delete frame;
 }
 
@@ -82,8 +94,9 @@ void ScaledSprite::update(Uint32 ticks) {
   setPosition(getPosition() + incr);
 
   if ( Y() < 0) {
-    velocityY( abs( velocityY() ) );
+    Y(worldHeight);
   }
+
   if ( Y() > worldHeight-frameHeight) {
     velocityY( -abs( velocityY() ) );
   }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <iomanip>
 #include "vector2f.h"
 #include "multisprite.h"
@@ -10,7 +11,14 @@
 #include "extractSurface.h"
 #include "scaledSprite.h"
 #include "hud.h"
+#include "frameFactory.h"
 
+class ScaledSpriteCompare {
+public:
+    bool operator()(const Drawable* lhs, const Drawable* rhs) {
+        return lhs->getScale() < rhs->getScale();
+    }
+};
 
 Manager::~Manager() { 
   std::vector<Drawable*>::const_iterator ptr = sprites.begin();
@@ -46,7 +54,6 @@ Manager::Manager() :
   title( Gamedata::getInstance().getXmlStr("screenTitle") ),
   username( Gamedata::getInstance().getXmlStr("username") ),
   frameMax( Gamedata::getInstance().getXmlInt("frameMax") ),
-  hudTime(0),
   showHud(false),
   hud(new Hud())
 {
@@ -58,10 +65,10 @@ Manager::Manager() :
 
   std::vector<std::string> name;
   name.push_back("superbg");
-  name.push_back("coral");
+  name.push_back("hill");
   std::vector<int> factor;
   factor.push_back(Gamedata::getInstance().getXmlInt("superbg/factor"));
-  factor.push_back(Gamedata::getInstance().getXmlInt("coral/factor"));
+  factor.push_back(Gamedata::getInstance().getXmlInt("hill/factor"));
   world = new World(name, factor);
 
   sprites.push_back(player);
@@ -77,38 +84,55 @@ Manager::Manager() :
   sprites.push_back( new TwoWayMultiSprite("fish5"));
 
   // create another vector, and put the bubble in the vector
-  // so that we don't track them
-  for(int i =0; i< 100; i++)
+  int cnt = Gamedata::getInstance().getXmlInt("bubble/number");
+  for(int i =0; i< cnt; i++)
   {
-    ScaledSprite* temp = new ScaledSprite("bubble", screen );
-    //temp->X( rand()% world->getWorldWidth() );
-    //temp->Y( rand() % world->getWorldHeight());  
-    //temp->velocityY( temp->velocityY() + rand()%80); 
+    ScaledSprite* temp = new ScaledSprite("bubble");
     bubbleSprites.push_back(temp);
   }
+  sort(bubbleSprites.begin(), bubbleSprites.end(), ScaledSpriteCompare());
+
   currentSprite = sprites.begin();
   viewport.setObjectToTrack(*currentSprite);
 }
 
 void Manager::draw() const {
   world->draw(0);
-  //clock.draw();
-  std::vector<Drawable*>::const_iterator ptr = sprites.begin();
-  while ( ptr != sprites.end() ) {
-    (*ptr)->draw();
-    ++ptr;
-  }
 
   // draw the bubbles
   std::vector<Drawable*>::const_iterator ptrP = bubbleSprites.begin();
   while ( ptrP != bubbleSprites.end() ) {
+    if((*ptrP)->getScale() < 1.0)
+        (*ptrP)->draw();
+    else
+        break;
+    ++ptrP;
+  }
+  std::vector<Drawable*>::const_iterator ptr = sprites.begin();
+  while ( ptr != sprites.end() ) {
+    if((*ptr)->getScale() <= 5)
+        (*ptr)->draw();
+    ++ptr;
+  }
+
+
+  world->draw(1);
+  while(ptrP != bubbleSprites.end())
+  {
     (*ptrP)->draw();
     ++ptrP;
   }
-  if(hudTime < 2000 || showHud == true)  
-        hud->drawHud(screen, 10, 10);
+
+  ptr = sprites.begin();
+  while ( ptr != sprites.end() ) {
+    if((*ptr)->getScale() > 5)
+        (*ptr)->draw();
+    ++ptr;
+  }
+
   io.printMessageCenteredAt(title, 10);
   viewport.draw();
+  hud->draw();
 
   SDL_Flip(screen);
 }
@@ -135,8 +159,8 @@ void Manager::switchSprite() {
 void Manager::update() {
   clock.update();
   Uint32 ticks = clock.getTicksSinceLastFrame();
-  hudTime += ticks;
-
+  hud->update(ticks);
+  
   std::vector<Drawable*>::const_iterator ptr = sprites.begin();
   while ( ptr != sprites.end() ) {
     (*ptr)->update(ticks);
@@ -208,6 +232,7 @@ void Manager::play() {
         }
         if (keystate[SDLK_F1]) {
             showHud = !showHud;
+            hud->setShow(showHud);
         }
 
       }

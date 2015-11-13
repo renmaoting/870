@@ -1,9 +1,13 @@
+#ifndef Clock_H
+#define Clock_H
+
 #include <SDL.h>
 #include <string>
 #include <deque>
 #include "vector2f.h"
 
 class Manager;
+class Hud;
 
 class Clock {
 public:
@@ -35,6 +39,8 @@ private:
   Clock(const Clock&);
   Clock&operator=(const Clock&);
   friend class Manager;
+  friend class Hud;
   void update();  // Increments time/ticks
   unsigned int getTicksSinceLastFrame() const;
 };
+#endif
