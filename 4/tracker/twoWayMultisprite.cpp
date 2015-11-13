@@ -4,6 +4,7 @@
 #include "extractSurface.h"
 #include "frameFactory.h"
 #include "gamedata.h"
+#include <cmath> 
 
 void TwoWayMultiSprite::advanceFrame(Uint32 ticks) {
 	timeSinceLastFrame += ticks;
@@ -38,10 +39,8 @@ TwoWayMultiSprite::TwoWayMultiSprite( const std::string& name) :
   frameHeight(frames[0]->getHeight()),
   scale(Gamedata::getInstance().getXmlInt(name+"/scale"))
 { 
-    X(rand()% worldWidth);
+    X( worldWidth/3 + sin(rand()%300)  );
     Y(rand()% worldHeight);
-    if(scale == 0)
-        scale = rand()%7;
 }
 
 void TwoWayMultiSprite::draw() const { 

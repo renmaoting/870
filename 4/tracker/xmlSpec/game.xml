@@ -176,7 +176,7 @@
   <cushion>50</cushion>
   <scale min="0.5" max="1.5"/>
   <width>23</width>
-  <number>100</number>
+  <number>200</number>
   <height>23</height>
   <loc x="0" y="700"/>
   <speed x="10" y="100"/>

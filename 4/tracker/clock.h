@@ -7,7 +7,6 @@
 #include "vector2f.h"
 
 class Manager;
-class Hud;
 
 class Clock {
 public:
@@ -34,12 +33,10 @@ private:
   unsigned int sumOfTicks;
   Vector2f pos;
 
-
   Clock();
   Clock(const Clock&);
   Clock&operator=(const Clock&);
   friend class Manager;
-  friend class Hud;
   void update();  // Increments time/ticks
   unsigned int getTicksSinceLastFrame() const;
 };
