@@ -17,7 +17,7 @@ int main()
     int a ,b;
     ss >> a >> b;
     cout << a << " " << b << endl; 
-    //ss.str("");
+    ss.str("");
     ss.clear();
     cout << ss.str() << endl;
     ss << true << " ";
@@ -26,6 +26,9 @@ int main()
     ss >> flag;
     cout << flag << endl;
     cout << ss.str() << endl;
+    ss.str("");
+    ss << a <<" " << b << " " << flag;
+    cout << "int the end " << ss.str()<< endl;
 }
 
 //int test_sstream(int bug)

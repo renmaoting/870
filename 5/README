@@ -1,0 +1,38 @@
+Name:Maoting Ren
+Clemson Email Address: mren@g.clemson.edu
+
+Project no: 4 
+Project due date: 8 AM, Tur, Nov 2th , 2015
+
+Project description:
+This project mainly finish 4 parts:
+1. use two background image, 
+
+2. create a Player class, and can control it by "A, S, D, W"
+
+3. write a Hub class, and will appear when the game begin, and then disappear after 2 second,
+    but you can call it by hit "F1". Also this class will display FPS, seconds, and operate keys
+    user can config the almost every for hud through xml.
+
+4. I have two vectors to deposite my sprites. when deal with my bubble vector, the bubble will 
+    be randomly zoom, and then sort them, then display the big bubbles in front, and small bubbles
+    display between two background. Then I also have a TwoWayMultiSprite vector, all fishes are deposited
+    int this vector, I didnot sort them, they all have a size called scale, then just display the big fishes
+    in front, and small fishes in back.
+
+
+For final project, I may make a game like this one, maybe user can control a player, and the player can shot
+the fishes. 
+
+
+I have checked that no meomery leak in my own code.
+
+How you made your sprites:
+ I get most of my orignal images from this address, I deal this images by PS and GIMP, and then get the image I want. 
+    https://github.com/coolfishstudio/game-fishing-single/tree/master/images
+
+
+
+
+
+
