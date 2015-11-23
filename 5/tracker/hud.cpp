@@ -22,7 +22,7 @@ Hud::Hud():
 {
 }
 
-void Hud::drawHud()
+void Hud::drawHud(Uint32 liveNum, Uint32 freeNum)
 {
     const Uint32 col = SDL_MapRGB(screen->format, 
             Gamedata::getInstance().getXmlInt("hud/red"),
@@ -36,22 +36,23 @@ void Hud::drawHud()
     Draw_AALine(screen, x + HUD_WIDTH, y ,x + HUD_WIDTH, y + HUD_HEIGHT, 3, col);
     Draw_AALine(screen, x, y + HUD_HEIGHT, x + HUD_WIDTH, y + HUD_HEIGHT, 3, col);
 
-    IOManager::getInstance().
-        printMessageValueAt("Sec: ",Clock::getInstance().getSeconds(), 2*x, 2*y);
-    IOManager::getInstance().
-        printMessageValueAt("FPS: ", Clock::getInstance().getFps(), 2*x, 2*y + interval);
+    IOManager::getInstance().printMessageValueAt("Sec: ",Clock::getInstance().getSeconds(), 2*x, 2*y);
+    IOManager::getInstance().printMessageValueAt("FPS: ", Clock::getInstance().getFps(), 2*x, 2*y + interval);
     IOManager::getInstance().printMessageAt("A:  Move left", 2*x, 2*y + 2*interval);
     IOManager::getInstance().printMessageAt("D:  Move right", 2*x, 2*y + 3*interval);
     IOManager::getInstance().printMessageAt("W:  Move up", 2*x, 2*y + 4*interval);
     IOManager::getInstance().printMessageAt("S:  Move down", 2*x, 2*y + 5*interval);
+    IOManager::getInstance().printMessageAt("G:  God Mode", 2*x, 2*y + 6*interval);
+    IOManager::getInstance().printMessageAt("R:  reset", 2*x, 2*y + 7*interval);
+    IOManager::getInstance().printMessageAt("F1: help", 2*x, 2*y + 8*interval);
+    IOManager::getInstance().printMessageValueAt("live num: ",liveNum, 2*x, 2*y + 9*interval);
+    IOManager::getInstance().printMessageValueAt("free num: ",freeNum, 2*x, 2*y + 10*interval);
 }
 
-void Hud::draw()
+void Hud::draw(Uint32 liveNum, Uint32 freeNum)
 {
    if(hudTime <= existTime || showHud == true) 
-   {
-        drawHud();
-   }
+        drawHud(liveNum, freeNum);
 }
 
 void Hud::update( Uint32 ticks)

@@ -1,7 +1,9 @@
 #ifndef SPRITE__H
 #define SPRITE__H
 #include <string>
+#include <vector>
 #include "drawable.h"
+#include "collisionStrategy.h"
 
 class ExplodingSprite;
 class Sprite : public Drawable {
@@ -17,11 +19,21 @@ public:
   virtual const Frame* getFrame() const { return frame; }
   virtual void draw() const;
 
+  bool collidedWith(const Drawable* d) const {
+    return strategy->execute(*this, *d);
+  }
+  void setCollisionStrategy(int index) {
+    strategy = strategies[index];
+  }
+
   virtual void update(Uint32 ticks);
   void explode();
 
 private:
   ExplodingSprite* explosion;
+  std::vector<CollisionStrategy*> strategies;
+  CollisionStrategy * strategy;
+
   const Frame * frame;
   int frameWidth;
   int frameHeight;

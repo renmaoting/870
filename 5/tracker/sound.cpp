@@ -31,7 +31,7 @@ SDLSound::SDLSound() :
                    audioBuffers)){
     throw string("Unable to open audio!");
   }
-  music = Mix_LoadMUS("sound/100Years.mp3");
+  music = Mix_LoadMUS("sound/login.mp3");
   // Need to install midi to play the following:
   // music = Mix_LoadMUS("sound/ballad2.mid");
   if (!music) throw string("Couldn't load 100Years.mp3")+Mix_GetError();

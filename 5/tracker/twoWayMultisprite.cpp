@@ -43,12 +43,32 @@ TwoWayMultiSprite::TwoWayMultiSprite( const std::string& name) :
   frameHeight(frames[0]->getHeight()),
   scale(Gamedata::getInstance().getXmlInt(name+"/scale"))
 { 
-    X( worldWidth/3 + sin(rand()%300)  );
+    X( rand() % worldWidth );
     Y(rand()% worldHeight);
     strategies.push_back( new MidPointCollisionStrategy );
     strategies.push_back( new RectangularCollisionStrategy );
     strategies.push_back( new PerPixelCollisionStrategy );
     strategy = strategies[0];
+}
+
+TwoWayMultiSprite::~TwoWayMultiSprite()
+{
+    for(Uint32 i = 0; i < strategies.size(); i++)
+        delete strategies[i];
+    if(explosion) delete explosion;
+}
+
+void TwoWayMultiSprite::reset()
+{
+    setVelocity(Vector2f(Gamedata::getInstance().getXmlInt(getName()+"/speedX") + rand()%30,
+                    Gamedata::getInstance().getXmlInt(getName()+"/speedY") + rand()%30));
+     
+    X( rand() % worldWidth );
+    Y(rand()% worldHeight);
+    right = true;
+    explosion = NULL;
+    currentFrame = 0;
+    timeSinceLastFrame = 0;
 }
 
 void TwoWayMultiSprite::draw() const { 
@@ -57,7 +77,6 @@ void TwoWayMultiSprite::draw() const {
     return;
   }
 
-  //std::cout << "MultiSprite" <<std::endl;
   Uint32 x = static_cast<Uint32>(X());
   Uint32 y = static_cast<Uint32>(Y());
   frames[currentFrame]->draw(x, y);

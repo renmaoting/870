@@ -1,3 +1,6 @@
+#ifndef FrameFactory_H
+#define FrameFactory_H
+
 #include <string>
 #include <vector>
 #include <map>
@@ -62,3 +65,4 @@ private:
   FrameFactory(const FrameFactory&);
   FrameFactory& operator=(const FrameFactory&);
 };
+#endif

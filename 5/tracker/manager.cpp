@@ -21,6 +21,11 @@ public:
 };
 
 Manager::~Manager() { 
+    freeRes();
+}
+
+void Manager::freeRes()
+{
   std::vector<Drawable*>::const_iterator ptr = sprites.begin();
   while ( ptr != sprites.end() ) {
     delete (*ptr);
@@ -34,6 +39,7 @@ Manager::~Manager() {
   }
   delete hud;
   delete world;
+  delete bm;
 }
 
 Manager::Manager() :
@@ -55,7 +61,14 @@ Manager::Manager() :
   frameMax( Gamedata::getInstance().getXmlInt("frameMax") ),
   showHud(false),
   hud(new Hud()),
-  sound()
+  sound(),
+  god(true),
+  bm(new BulletManager("bullet"))
+{
+    loadSet();
+}
+
+void Manager::loadSet()
 {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     throw string("Unable to initialize SDL: ");
@@ -71,16 +84,17 @@ Manager::Manager() :
   factor.push_back(Gamedata::getInstance().getXmlInt("hill/factor"));
   world = new World(name, factor);
 
+  sprites.push_back( new TwoWayMultiSprite("fish1"));
   sprites.push_back( new MultiSprite("fish7"));
   sprites.push_back( new TwoWayMultiSprite("fish1"));
   sprites.push_back( new TwoWayMultiSprite("fish1"));
   sprites.push_back( new TwoWayMultiSprite("fish1"));
-  sprites.push_back( new TwoWayMultiSprite("fish1"));
   sprites.push_back( new TwoWayMultiSprite("fish4"));
   sprites.push_back( new TwoWayMultiSprite("fish4"));
   sprites.push_back( new TwoWayMultiSprite("fish4"));
   sprites.push_back( new TwoWayMultiSprite("fish5"));
   sprites.push_back( new TwoWayMultiSprite("fish5"));
+  sprites.push_back( player);
 
   // create another vector, and put the bubble in the vector
   int cnt = Gamedata::getInstance().getXmlInt("bubble/number");
@@ -91,16 +105,36 @@ Manager::Manager() :
   }
   sort(bubbleSprites.begin(), bubbleSprites.end(), ScaledSpriteCompare());
 
-  viewport.setObjectToTrack((Drawable*)player);
+  viewport.setObjectToTrack(*(sprites.end()-1));
+ 
 }
 
 bool Manager::checkForCollisions() const {
   std::vector<Drawable*>::const_iterator sprite = sprites.begin();
-  while ( sprite != sprites.end() ) {
+  while ( sprite != sprites.end()-1 ) {
     if ( player->collidedWith(*sprite) ) return true;
     ++sprite;
   }
   return false;
+}
+
+void Manager::bulletCollision() 
+{
+    std::list<Bullet*> bl = bm->getBulletList();
+    std::vector<Drawable*>::const_iterator sprite = sprites.begin();
+    std::list<Bullet*>::iterator itB = bl.begin();
+    while(itB != bl.end())
+    {
+        while(sprite != sprites.end())
+        {
+            if((*itB)->collidedWith(*sprite) ) 
+            {
+                (*sprite)->explode();
+            }  
+            sprite++; 
+        } 
+        itB++;
+    }
 }
 
 void Manager::draw() const {
@@ -130,14 +164,13 @@ void Manager::draw() const {
     ++ptr;
   }
 
-  if(checkForCollisions())
+  if(!god && checkForCollisions())
     player->explode();
-  else
-    player->draw();
+  bm->draw();
   
   io.printMessageCenteredAt(title, 10);
   viewport.draw();
-  hud->draw();
+  hud->draw(bm->getLiveNum(), bm->getFreeNum());
 
   SDL_Flip(screen);
 }
@@ -153,11 +186,31 @@ void Manager::makeFrame() {
   SDL_SaveBMP(screen, filename.c_str());
 }
 
+void Manager::reset()
+{
+    std::vector<Drawable*>::const_iterator ptr = sprites.begin();
+    while ( ptr != sprites.end() ) {
+        (*ptr)->reset();
+        ++ptr;
+    }
+  
+    std::vector<Drawable*>::const_iterator ptrB = bubbleSprites.begin();
+    while ( ptrB !=bubbleSprites.end() ) {
+        (*ptrB)->reset();
+        ++ptrB;
+    }
+
+    god = true;;
+    bm->reset();
+}
+
 void Manager::update() {
   clock.update();
   Uint32 ticks = clock.getTicksSinceLastFrame();
   hud->update(ticks);
   player->update(ticks );
+  bm->update(ticks);
+  bulletCollision();
   
   std::vector<Drawable*>::const_iterator ptr = sprites.begin();
   while ( ptr != sprites.end() ) {
@@ -197,6 +250,23 @@ void Manager::play() {
           if ( clock.isPaused() ) clock.unpause();
           else clock.pause();
         }
+        if ( keystate[SDLK_SPACE] ) {
+            float flag = player->getDirection() == 1?1:(-0.3);
+            Vector2f pos(player->X()+ player->getFrame()->getWidth() * flag,
+                    player->Y() + player->getFrame()->getHeight()/3);
+            bm->shoot(pos, player->getDirection());
+        }
+        if ( keystate[SDLK_g] ) {
+            god = !god;
+            if(god)
+                std::cout << "you are god now" << std::endl; 
+            else
+                std::cout << "you are not god now" << std::endl; 
+        }
+        if ( keystate[SDLK_r] ) {
+            reset();
+        }
+
 
         if (keystate[SDLK_s] && keystate[SDLK_w]) {
             player->stop();

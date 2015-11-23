@@ -20,6 +20,9 @@ MultiSprite::MultiSprite( const std::string& name) :
            Vector2f(Gamedata::getInstance().getXmlInt(name+"/speedX"),
                     Gamedata::getInstance().getXmlInt(name+"/speedY"))
            ),
+  explosion(NULL),
+  strategies(),
+  strategy( NULL ),
   frames( FrameFactory::getInstance().getFrames(name)),
   starFrames(),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
@@ -32,16 +35,56 @@ MultiSprite::MultiSprite( const std::string& name) :
   frameWidth(frames[0]->getWidth()),
   frameHeight(frames[0]->getHeight())
 { 
+    strategies.push_back( new MidPointCollisionStrategy );
+    strategies.push_back( new RectangularCollisionStrategy );
+    strategies.push_back( new PerPixelCollisionStrategy );
+    strategy = strategies[0];
+}
 
+MultiSprite::~MultiSprite()
+{
+    for(Uint32 i = 0; i < strategies.size(); i++)
+        delete strategies[i];
+    if(explosion)
+        delete explosion;
+}
+
+void MultiSprite::explode() { 
+  if ( explosion ) return;
+  Sprite sprite(getName(), getPosition(), getVelocity(), getFrame());
+  explosion = new ExplodingSprite(sprite); 
+}
+
+void MultiSprite::reset()
+{
+    setVelocity(Vector2f(Gamedata::getInstance().getXmlInt(getName()+"/speedX") + rand()%30,
+        Gamedata::getInstance().getXmlInt(getName()+"/speedY") + rand()%30));
+     
+    X( rand() % worldWidth );
+    Y(rand()% worldHeight);
+    timeSinceLastFrame = 0;
 }
 
 void MultiSprite::draw() const { 
+  if (explosion) {
+    explosion->draw();
+    return;
+  }
+
   Uint32 x = static_cast<Uint32>(X());
   Uint32 y = static_cast<Uint32>(Y());
   frames[currentFrame]->draw(x, y);
 }
 
 void MultiSprite::update(Uint32 ticks) { 
+  if ( explosion ) {
+    explosion->update(ticks);
+    if ( explosion->chunkCount() == 0 ) {
+      delete explosion;
+      explosion = NULL;
+    }
+    return;
+  }
   advanceFrame(ticks);
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);

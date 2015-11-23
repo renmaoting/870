@@ -3,19 +3,32 @@
 #include <string>
 #include <vector>
 #include "drawable.h"
+#include "explodingSprite.h"
 
 class MultiSprite : public Drawable {
 public:
   MultiSprite(const std::string&);
-  virtual ~MultiSprite() { } 
+  virtual ~MultiSprite() ; 
 
   virtual void draw() const;
   virtual void update(Uint32 ticks);
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
+  bool collidedWith(const Drawable* d) const {
+    return strategy->execute(*this, *d);
+  }
+  void setCollisionStrategy(int index) {
+    strategy = strategies[index];
+  }
+
+  virtual void reset();
+  void explode();
 
 protected:
+  ExplodingSprite* explosion;
+  std::vector<CollisionStrategy*> strategies;
+  CollisionStrategy * strategy;
   const std::vector<Frame *> frames;
   std::vector<Frame*> starFrames;
   int worldWidth;

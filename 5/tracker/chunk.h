@@ -7,7 +7,7 @@
 
 class Chunk : public Sprite {
 public:
-  explicit Chunk(
+  Chunk(
     const Vector2f& pos, const Vector2f vel, 
     const string& name, const Frame* fm) :
     Sprite(name, pos, vel, fm), 

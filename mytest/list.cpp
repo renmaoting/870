@@ -12,7 +12,7 @@ int main()
 {
     std::list<int> ll;
     std::list<int>::iterator ptr;
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 1; i++)
         ll.push_back(i);
 
     for(ptr = ll.begin(); ptr != ll.end(); ptr++)

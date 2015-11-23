@@ -10,6 +10,7 @@
 #include "player.h"
 #include "hud.h"
 #include "sound.h"
+#include "bulletManager.h"
 
 class Manager {
 public:
@@ -18,6 +19,7 @@ public:
   void play();
   void switchSprite();
   bool checkForCollisions() const; 
+  void bulletCollision(); 
 
 private:
   const bool env;
@@ -40,9 +42,14 @@ private:
   bool showHud;
   Hud* hud;
   SDLSound sound;
+  bool god;
+  BulletManager* bm;
 
   void draw() const;
   void update();
+  void reset();
+  void loadSet();
+  void freeRes();
 
   Manager(const Manager&);
   Manager& operator=(const Manager&);

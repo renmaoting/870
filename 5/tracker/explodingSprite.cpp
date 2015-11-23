@@ -16,6 +16,7 @@ ExplodingSprite::~ExplodingSprite() {
   for ( unsigned int i = 0; i < frames.size(); ++i ) {
     delete frames[i]; // ExplodingSprite made them, so it deletes them
   }
+
   chunks.clear();     // clearing a vector is a waste of time, but ...
   freeList.clear();   // still ...
 }
@@ -52,6 +53,7 @@ void ExplodingSprite::makeChunks(unsigned int n) {
   if (speedx == 0) speedx = 1; // Make sure it's not 0;
   if (speedy == 0) speedy = 1; // Make sure it's not 0;
 
+  std::cout << "make chunk!" << std::endl;
   // Get the SDL_Surface so we can chunk it:
   SDL_Surface* spriteSurface(getFrame()->getSurface()); 
   Sint16 source_y = getFrame()->getSourceY();

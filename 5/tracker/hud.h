@@ -19,8 +19,8 @@ public:
     Hud(Hud&);
     Hud operator=(const Hud&);
     ~Hud(){ };
-    void drawHud();
-    void draw();
+    void drawHud(Uint32 liveNum, Uint32 freeNum);
+    void draw(Uint32 liveNum, Uint32 freeNum);
     void update( Uint32 ticks);
     void setShow(bool show);
 

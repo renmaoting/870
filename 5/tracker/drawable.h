@@ -43,10 +43,11 @@ public:
   void setVelocity(const Vector2f& vel) { velocity = vel;  }
   const Vector2f& getPosition() const   { return position; }
   void setPosition(const Vector2f& pos) { position = pos;  }
-
+  virtual void explode(){}
   virtual bool collidedWith(const Drawable*) const { 
     throw std::string("No collidedWith");  
   }
+  virtual void reset(){}
 
 private:
   std::string name;

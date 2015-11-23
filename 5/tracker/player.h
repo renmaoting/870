@@ -16,6 +16,7 @@ public:
   void goUp();
   void goDown();
   void stop();
+  void reset();
 
 protected:
   Player (const Player &);

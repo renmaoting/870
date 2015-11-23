@@ -2,12 +2,19 @@
 #include <vector>
 #include "ioManager.h"
 #include "extractSurface.h"
-#include "frameFactory.h"
 #include "gamedata.h"
+#include "explodingSprite.h"
 
 Player::Player( const std::string& name) :
     TwoWayMultiSprite(name)
 { 
+    setVelocity(Vector2f(0,0));
+    X(worldWidth/3);
+    Y(worldHeight/3);
+}
+
+void Player::reset()
+{
     setVelocity(Vector2f(0,0));
     X(worldWidth/3);
     Y(worldHeight/3);
@@ -41,6 +48,15 @@ void Player::stop()
 }
 
 void Player::update(Uint32 ticks) { 
+  if ( explosion ) {
+    explosion->update(ticks);
+    if ( explosion->chunkCount() == 0 ) {
+      delete explosion;
+      explosion = NULL;
+    }
+    return;
+  }
+
   advanceFrame(ticks);
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);

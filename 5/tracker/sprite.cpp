@@ -12,37 +12,62 @@ Sprite::Sprite(const std::string& name) :
                     Gamedata::getInstance().getXmlInt(name+"/speedY")) 
            ),
   explosion(NULL),
+  strategies(),
+  strategy( NULL ),
   frame( FrameFactory::getInstance().getFrame(name) ),
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
-{ }
+{ 
+    strategies.push_back( new MidPointCollisionStrategy );
+    strategies.push_back( new RectangularCollisionStrategy );
+    strategies.push_back( new PerPixelCollisionStrategy );
+    strategy = strategies[0];
+}
 
 Sprite::Sprite(const string& n, const Vector2f& pos, const Vector2f& vel):
   Drawable(n, pos, vel), 
   explosion(NULL),
+  strategies(),
+  strategy( NULL ),
   frame( FrameFactory::getInstance().getFrame(n) ),
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
-{ }
+{
+    strategies.push_back( new MidPointCollisionStrategy );
+    strategies.push_back( new RectangularCollisionStrategy );
+    strategies.push_back( new PerPixelCollisionStrategy );
+    strategy = strategies[0];
+}
+
 
 Sprite::Sprite(const string& n, const Vector2f& pos, const Vector2f& vel,
                const Frame* frm):
   Drawable(n, pos, vel), 
   explosion(NULL),
+  strategies(),
+  strategy( NULL ),
+
   frame( frm ),
   frameWidth(frame->getWidth()),
   frameHeight(frame->getHeight()),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
-{ }
+{
+    strategies.push_back( new MidPointCollisionStrategy );
+    strategies.push_back( new RectangularCollisionStrategy );
+    strategies.push_back( new PerPixelCollisionStrategy );
+    strategy = strategies[0];
+}
 
 Sprite::Sprite(const Sprite& s) :
   Drawable(s), 
   explosion(s.explosion),
+  strategies(s.strategies),
+  strategy(s.strategy),
   frame(s.frame),
   frameWidth(s.getFrame()->getWidth()),
   frameHeight(s.getFrame()->getHeight()),

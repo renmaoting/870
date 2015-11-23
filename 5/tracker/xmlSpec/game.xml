@@ -38,6 +38,22 @@
   <transparency>false</transparency>
 </superbg>
 
+<bullet>
+  <file>images/bullet.png</file>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <speedX>600</speedX>
+  <speedY>0</speedY>
+  <width>45</width>
+  <height>45</height>
+  <distance>400</distance>
+  <chunk>
+    <size>9</size>
+    <distance>200</distance>
+  </chunk>
+  <transparency>false</transparency>
+</bullet>
+
 <hill>
   <file>images/mt.png</file>
   <red>193</red>
@@ -52,11 +68,11 @@
 </hill>
 
 <hud>
-    <height>200</height>
+    <height>330</height>
     <width>200</width>
     <startLoc x="10" y="10"/>
     <interval>30</interval>
-    <existTime>2000</existTime>
+    <existTime>3000</existTime>
     <red>193</red>
     <green>205</green>
     <blue>205</blue>
@@ -89,7 +105,7 @@
   <startLoc x="220" y="140"/>
 
   <frames>16</frames>
-  <frameInterval>150</frameInterval>
+  <frameInterval>50</frameInterval>
 
   <scale>3 </scale>
   <srcX>0</srcX>
@@ -189,7 +205,7 @@
   <speedY>50</speedY>
   <transparency>true</transparency>
   <chunk>
-    <size>9</size>
+    <size>25</size>
     <distance>200</distance>
   </chunk>
 
