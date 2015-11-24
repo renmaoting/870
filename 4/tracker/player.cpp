@@ -44,17 +44,17 @@ void Player::update(Uint32 ticks) {
   advanceFrame(ticks);
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);
-  if ( Y() < 0) {
-    velocityY( abs( 0 ) );
-  }
-  if ( Y() > worldHeight-frameHeight) {
-    velocityY( -abs( 0 ) );
-  }
+  //if ( Y() < 0) {
+  //  velocityY( abs( 0 ) );
+  //}
+  //if ( Y() > worldHeight-frameHeight) {
+  //  velocityY( -abs( 0 ) );
+  //}
 
-  if ( X() < 0) {
-    velocityX( abs(0) );
-  }
-  if ( X() > worldWidth-frameWidth) {
-    velocityX( -abs(0  ) );
-  }  
+  //if ( X() < 0) {
+  //  velocityX( abs(0) );
+  //}
+  //if ( X() > worldWidth-frameWidth) {
+  //  velocityX( -abs(0  ) );
+  //}  
 }
