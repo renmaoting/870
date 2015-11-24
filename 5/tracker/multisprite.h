@@ -24,9 +24,12 @@ public:
 
   virtual void reset();
   void explode();
+  virtual bool ifDelete(){ return expFlag && !explosion;}
+  bool getExplosion() { return expFlag;}
 
 protected:
   ExplodingSprite* explosion;
+  bool expFlag;
   std::vector<CollisionStrategy*> strategies;
   CollisionStrategy * strategy;
   const std::vector<Frame *> frames;

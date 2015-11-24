@@ -28,9 +28,12 @@ public:
   virtual float getScale()const{ return scale;}
   void explode();
   virtual void reset();
+  virtual bool ifDelete(){ return expFlag && !explosion;}
+  bool getExplosion() { return expFlag;}
 
 protected:
   ExplodingSprite* explosion;
+  bool expFlag;
   std::vector<CollisionStrategy*> strategies;
   CollisionStrategy * strategy;
   const std::vector<Frame *> frames;

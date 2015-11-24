@@ -22,6 +22,12 @@ Hud::Hud():
 {
 }
 
+void Hud::reset()
+{
+    showHud = false;
+    hudTime = 0;
+}
+
 void Hud::drawHud(Uint32 liveNum, Uint32 freeNum)
 {
     const Uint32 col = SDL_MapRGB(screen->format, 

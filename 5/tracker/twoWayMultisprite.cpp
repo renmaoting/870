@@ -26,6 +26,7 @@ TwoWayMultiSprite::TwoWayMultiSprite( const std::string& name) :
                     Gamedata::getInstance().getXmlInt(name+"/speedY") + rand()%30)
            ),
   explosion(NULL),
+  expFlag(false),
   strategies(),
   strategy( NULL ),
   frames( FrameFactory::getInstance().getFrames(name)),
@@ -83,6 +84,7 @@ void TwoWayMultiSprite::draw() const {
 }
 
 void TwoWayMultiSprite::explode() { 
+  expFlag = true;
   if ( explosion ) return;
   Sprite sprite(getName(), getPosition(), getVelocity(), getFrame());
   explosion = new ExplodingSprite(sprite); 

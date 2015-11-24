@@ -112,7 +112,7 @@ void Manager::loadSet()
 bool Manager::checkForCollisions() const {
   std::vector<Drawable*>::const_iterator sprite = sprites.begin();
   while ( sprite != sprites.end()-1 ) {
-    if ( player->collidedWith(*sprite) ) return true;
+    if (!(*sprite)->getExplosion() && player->collidedWith(*sprite) ) return true;
     ++sprite;
   }
   return false;
@@ -188,18 +188,28 @@ void Manager::makeFrame() {
 
 void Manager::reset()
 {
-    std::vector<Drawable*>::const_iterator ptr = sprites.begin();
-    while ( ptr != sprites.end() ) {
-        (*ptr)->reset();
-        ++ptr;
+    std::vector<Drawable*>::iterator ptr = sprites.begin();
+    while ( ptr != (sprites.end()) ) {
+        delete (*ptr);
+        ptr = sprites.erase(ptr);
     }
-  
-    std::vector<Drawable*>::const_iterator ptrB = bubbleSprites.begin();
-    while ( ptrB !=bubbleSprites.end() ) {
-        (*ptrB)->reset();
-        ++ptrB;
-    }
-
+ 
+    player = new Player("fish10");
+    sprites.push_back( new MultiSprite("fish7"));
+    sprites.push_back( new TwoWayMultiSprite("fish1"));
+    sprites.push_back( new TwoWayMultiSprite("fish1"));
+    sprites.push_back( new TwoWayMultiSprite("fish1"));
+    sprites.push_back( new TwoWayMultiSprite("fish1"));
+    sprites.push_back( new TwoWayMultiSprite("fish4"));
+    sprites.push_back( new TwoWayMultiSprite("fish4"));
+    sprites.push_back( new TwoWayMultiSprite("fish4"));
+    sprites.push_back( new TwoWayMultiSprite("fish5"));
+    sprites.push_back( new TwoWayMultiSprite("fish5"));
+    sprites.push_back( player);
+    viewport.setObjectToTrack(*(sprites.end()-1));
+ 
+    hud->reset();
+    clock.reset();
     god = true;;
     bm->reset();
 }
@@ -212,10 +222,15 @@ void Manager::update() {
   bm->update(ticks);
   bulletCollision();
   
-  std::vector<Drawable*>::const_iterator ptr = sprites.begin();
+  std::vector<Drawable*>::iterator ptr = sprites.begin();
   while ( ptr != sprites.end() ) {
     (*ptr)->update(ticks);
-    ++ptr;
+    if((*ptr)->ifDelete())
+    {
+        delete (*ptr);
+        ptr = sprites.erase(ptr);
+    }
+    else  ++ptr;
   }
 
   // update the bubbles

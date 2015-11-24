@@ -15,6 +15,7 @@ Clock& Clock::getInstance() {
 }
 
 Clock::Clock() :
+  seconds(0),
   ticks(1000 / Gamedata::getInstance().getXmlInt("frameCap")),
   totalTicks(0),
   started(false), 
@@ -25,6 +26,11 @@ Clock::Clock() :
        Gamedata::getInstance().getXmlInt("clock/locY"))
   {
   start();
+}
+
+void Clock::reset()
+{
+    seconds = 0;
 }
 
 void Clock::draw() const { 
@@ -43,7 +49,7 @@ void Clock::update() {
   }else{
     sumOfTicks = totalTicks;
   }
-
+  seconds += getTicksSinceLastFrame(); 
 }
 
 unsigned int Clock::getTicksSinceLastFrame() const {

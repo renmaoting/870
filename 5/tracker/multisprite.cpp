@@ -21,6 +21,7 @@ MultiSprite::MultiSprite( const std::string& name) :
                     Gamedata::getInstance().getXmlInt(name+"/speedY"))
            ),
   explosion(NULL),
+  expFlag(false),
   strategies(),
   strategy( NULL ),
   frames( FrameFactory::getInstance().getFrames(name)),
@@ -50,6 +51,7 @@ MultiSprite::~MultiSprite()
 }
 
 void MultiSprite::explode() { 
+  expFlag = true;
   if ( explosion ) return;
   Sprite sprite(getName(), getPosition(), getVelocity(), getFrame());
   explosion = new ExplodingSprite(sprite); 

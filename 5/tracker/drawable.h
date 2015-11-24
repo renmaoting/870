@@ -48,6 +48,8 @@ public:
     throw std::string("No collidedWith");  
   }
   virtual void reset(){}
+  virtual bool ifDelete(){ std::cout << "ifDelete not implement" << std::endl; return false;}
+  virtual bool getExplosion(){std::cout << "getExplosio not implement" << std::endl; return false;}
 
 private:
   std::string name;

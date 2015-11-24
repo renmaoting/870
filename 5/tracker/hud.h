@@ -23,6 +23,7 @@ public:
     void draw(Uint32 liveNum, Uint32 freeNum);
     void update( Uint32 ticks);
     void setShow(bool show);
+    void reset();
 
 private:
     SDL_Surface* screen;

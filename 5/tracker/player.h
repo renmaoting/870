@@ -17,6 +17,7 @@ public:
   void goDown();
   void stop();
   void reset();
+  bool ifDelete() {return false;}
 
 protected:
   Player (const Player &);
