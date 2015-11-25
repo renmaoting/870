@@ -1,0 +1,228 @@
+<?xml version = "1.0"?>
+<GameData>
+<!-- screenTitle is also used to identify you and your animation. 
+     So make sure to include your name as part of the screenTitle -->
+<screenTitle>Maoting Ren</screenTitle>
+<maxStringSize>50</maxStringSize>
+
+<frameCap>60</frameCap>
+<framesAreCapped>true</framesAreCapped>
+<frameMax>300</frameMax>
+<username>mren</username>
+
+<view>
+  <width>960</width>
+  <height>650</height>
+</view>
+
+<world>
+  <width>3900</width>
+  <height>650</height>
+</world>
+
+<clock>
+  <locX>10</locX>
+  <locY>10</locY>
+</clock>
+
+<superbg>
+  <file>images/ocean.png</file>
+  <red>193</red>
+  <green>205</green>
+  <blue>205</blue>
+  <factor>5</factor>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>1920</width>
+  <height>1080</height>
+  <transparency>false</transparency>
+</superbg>
+
+<bullet>
+  <file>images/bullet.png</file>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <speedX>600</speedX>
+  <speedY>0</speedY>
+  <width>45</width>
+  <height>45</height>
+  <distance>400</distance>
+  <chunk>
+    <size>9</size>
+    <distance>200</distance>
+  </chunk>
+  <transparency>false</transparency>
+</bullet>
+
+<hill>
+  <file>images/mt.png</file>
+  <red>193</red>
+  <green>205</green>
+  <blue>205</blue>
+  <factor>1</factor>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>1500</width>
+  <height>650</height>
+  <transparency>false</transparency>
+</hill>
+
+<hud>
+    <height>330</height>
+    <width>200</width>
+    <startLoc x="10" y="10"/>
+    <interval>30</interval>
+    <existTime>3000</existTime>
+    <red>193</red>
+    <green>205</green>
+    <blue>205</blue>
+</hud>
+
+<back>
+  <file>images/checkerboard.bmp</file>
+  <red>1</red>
+  <green>5</green>
+  <blue>245</blue>
+  <factor>1</factor>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>1280</width>
+  <height>960</height>
+  <transparency>false</transparency>
+</back>
+
+<font name="font">
+  <file>font/dyslexic-bold.otf</file>
+  <size>20</size>
+  <red>122</red>
+  <green>15</green>
+  <blue>200</blue>
+  <unused>0</unused>
+</font>
+
+<fish1>
+  <file>images/fish1m.png</file>
+  <startLoc x="220" y="140"/>
+
+  <frames>16</frames>
+  <frameInterval>50</frameInterval>
+
+  <scale>3 </scale>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>55</width>
+  <height>37</height>
+  <speedX>200</speedX>
+  <speedY>50</speedY>
+  <transparency>true</transparency>
+  <chunk>
+    <size>9</size>
+    <distance>200</distance>
+  </chunk>
+
+</fish1>
+
+<fish4>
+  <file>images/fish4m.png</file>
+  <startLoc x="520" y="40"/>
+
+  <frames>16</frames>
+  <frameInterval>150</frameInterval>
+  <scale>5 </scale>
+
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>77</width>
+  <height>59</height>
+  <speedX>150</speedX>
+  <speedY>150</speedY>
+  <transparency>true</transparency>
+  <chunk>
+    <size>9</size>
+    <distance>200</distance>
+  </chunk>
+
+</fish4>
+
+<fish5>
+  <file>images/fish5m.png</file>
+  <startLoc x="10" y="540"/>
+
+  <frames>16</frames>
+  <frameInterval>450</frameInterval>
+
+  <scale>7 </scale>
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>107</width>
+  <height>122</height>
+  <speedX>50</speedX>
+  <speedY>50</speedY>
+  <transparency>true</transparency>
+  <chunk>
+    <size>9</size>
+    <distance>200</distance>
+  </chunk>
+
+</fish5>
+
+
+<fish7>
+  <file>images/fish7.png</file>
+  <startLoc x="20" y="440"/>
+
+  <frames>10</frames>
+  <frameInterval>150</frameInterval>
+
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>92</width>
+  <height>151</height>
+  <speedX>100</speedX>
+  <speedY>50</speedY>
+  <scale>7 </scale>
+  <transparency>true</transparency>
+  <chunk>
+    <size>9</size>
+    <distance>200</distance>
+  </chunk>
+
+</fish7>
+
+<fish10>
+  <file>images/fish10m.png</file>
+  <startLoc x="120" y="240"/>
+
+  <frames>20</frames>
+  <frameInterval>550</frameInterval>
+
+  <srcX>0</srcX>
+  <srcY>0</srcY>
+  <width>178</width>
+  <height>187</height>
+  <scale>7 </scale>
+  <speedX>100</speedX>
+  <speedY>50</speedY>
+  <transparency>true</transparency>
+  <chunk>
+    <size>25</size>
+    <distance>200</distance>
+  </chunk>
+
+</fish10>
+
+<bubble>
+  <file>images/bubble.png</file>
+  <src x ="0" y="0"/>
+  <cushion>50</cushion>
+  <scale min="0.5" max="1.5"/>
+  <width>23</width>
+  <number>100</number>
+  <height>23</height>
+  <loc x="0" y="700"/>
+  <speed x="10" y="100"/>
+  <transparency>true</transparency>
+</bubble>
+
+
+</GameData>
