@@ -1,0 +1,33 @@
+Name:Maoting Ren
+Clemson Email Address: mren@g.clemson.edu
+
+Project no: 5 
+Project due date: 8 AM, Wed, Nov 25th , 2015
+
+Project description:
+This project mainly done the following works:
+1. use object pool to bullet, and show how many bullet are still alive and how many bullets are in the freelist 
+    in the information HUD. Also the HUD will show how to move the player and other useful information, you can 
+    press F1 to call HUD window.
+
+2. The player will explode if it collision with some other fishes, then it will be re-appear, and if you press 'g', then you are in god mode
+
+3. When you press 'r', the game will restart, mainly the clock, bulletpool will reset to start station, and 
+    all fishes will be killed and regenerate them again, and the player will be back to original position.
+
+4. Player can shoot and kill other fishes.
+
+5. Use collision detection and use chunks way to explode NPC
+
+
+I have checked that no meomery leak in my own code.
+
+How you made your sprites:
+ I get most of my orignal images from this address, I deal this images by PS and GIMP, and then get the image I want. 
+    https://github.com/coolfishstudio/game-fishing-single/tree/master/images
+
+
+
+
+
+
